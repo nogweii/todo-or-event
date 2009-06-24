@@ -24,6 +24,10 @@ according to the rules set before, but we mean it to be a todo. The second line,
 however, is parsed as we expect it to be. Therefore, it is the recommended
 syntax. When attempting to use this library, be more explicit than implicit.
 
+## Requirements
+
+ * [Princeton's WordNet](http://wordnet.princeton.edu/)
+
 ## Copyright
 
 Copyright (c) 2009 Colin Shea. See LICENSE for details.

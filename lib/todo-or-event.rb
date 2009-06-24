@@ -1,7 +1,3 @@
-require 'rubygems'
-gem 'wordnet', '>=0.0.5'
-require 'wordnet'
-
 class TodoOrEvent
 	# In case WNHOME isn't exported or wordnet isn't installed in /usr/share/wordnet, modify this path
 	# to point to the correct location.
