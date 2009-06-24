@@ -38,6 +38,8 @@ class TodoOrEventTest < Test::Unit::TestCase
 	end
 
 	def test_exception_on_nil_parameter
-		assert_raise ArgumentError { TodoOrEvent.parse(nil) }
+		assert_raise ::ArgumentError do
+			TodoOrEvent.parse(nil)
+		end
 	end
 end
