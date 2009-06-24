@@ -25,9 +25,8 @@ class TodoOrEvent
 
 		def match_verbs(comparison_data)
 			normalized = comparison_data.downcase.sub(/^go\s/, '')
-			@words.each do |verb_rx|
+			words.each do |verb_rx|
 				if match_data = normalized.match(verb_rx)
-					#p "It matches #{verb_rx}"
 					return match_data
 				end
 			end
@@ -39,9 +38,7 @@ class TodoOrEvent
 			return nil if line.empty?
 
 			if match_data = match_verbs(line)
-				#p "Begins with a verb", match_data
 				if mdata2 = match_verbs(match_data[2])
-					#p "Begins with a verb again", mdata2
 					return :event
 				else
 					return :todo
