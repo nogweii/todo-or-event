@@ -3,8 +3,8 @@ require 'test_helper'
 class TodoOrEventTest < Test::Unit::TestCase
 	# Simple, definitive phrases.
 	def test_simple_language
-		assert TodoOrEvent.is_todo?("RubyConf in June")
-		assert not TodoOrEvent.is_todo?("Finish the advanced natural language parsing engine")
+		assert_equal TodoOrEvent.parse("RubyConf in June"), :event
+		assert_equal TodoOrEvent.parse("Finish the advanced natural language parsing engine"), :todo
 	end
 
 	# Testing if the first two words are verbs.
@@ -13,7 +13,7 @@ class TodoOrEventTest < Test::Unit::TestCase
 	# meaning word, where one definition is for a verb and another not.
 	# (in this test, 'monkey' can be both a noun or a verb)
 	def test_double_verb
-		assert not TodoOrEvent.is_todo?("Monkey attack on the animal research center")
+		assert_equal TodoOrEvent.parse("Monkey attack on the animal research center"), :event
 	end
 
 	# This is where the aforementioned assumption falls apart. I'm not even
@@ -29,7 +29,7 @@ class TodoOrEventTest < Test::Unit::TestCase
 	# be funny to try to 'fish' the skullfish in using the claw shot.
 	# Unfortunately, doesn't work.
 	def test_verb_noun
-		assert not TodoOrEvent.is_todo?("Catch fish with the claw shot")
-		assert TodoOrEvent.is_todo? "Catch some fish with the claw shot"
+		assert_equal TodoOrEvent.parse("Catch fish with the claw shot"), :event
+		assert_equal TodoOrEvent.parse("Catch some fish with the claw shot"), :todo
 	end
 end
