@@ -1,6 +1,6 @@
 # Todo or Event?
 
-A rather simple system for guessing what a line is meant to be. Given a string
+A rather simple library for guessing what a line is meant to be. Given a string
 of proper English, return either ':todo' or ':event'.
 
 A string is determined to be a todo rather an event if the line is thought to be
