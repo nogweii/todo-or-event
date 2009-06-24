@@ -30,4 +30,4 @@ syntax. When attempting to use this library, be more explicit than implicit.
 
 ## Copyright
 
-Copyright (c) 2009 Colin Shea. See LICENSE for details.
+Copyright (c) 2009 Colin Shea. See LICENSE.txt for details.
