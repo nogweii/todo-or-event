@@ -3,13 +3,26 @@ gem 'wordnet', '>=0.0.5'
 require 'wordnet'
 
 class TodoOrEvent
-	@path = File.join(ENV['WNHOME'] || "/usr/share/wordnet", 'dict', 'index.verb')
+	# In case WNHOME isn't exported or wordnet isn't installed in /usr/share/wordnet, modify this path
+	# to point to the correct location.
+	attr_writer :path
+
+	@path = ENV['WNHOME'] || "/usr/share/wordnet"
 	@words = []
-	File.readlines(@path).each do |line|
-		@words << Regexp.new("^(#{line.split(' ').first.gsub(/_/, ' ').downcase})\s(.*)") unless line =~ /^\s/
-	end
 
 	class << self
+		# Load the verbs into an array as regular expressions unless it's done so already.
+		#
+		# @return [Array] A series of regular expressions matching /^verb\s/
+		def words
+			if @words.empty?
+				File.readlines(File.join(@path, 'dict', 'index.verb')).each do |line|
+					@words << Regexp.new("^(#{line.split(' ').first.gsub(/_/, ' ').downcase})\s(.*)") unless line =~ /^\s/
+				end
+			end
+			@words
+		end
+
 		def match_verbs(comparison_data)
 			normalized = comparison_data.downcase.sub(/^go\s/, '')
 			@words.each do |verb_rx|
@@ -21,17 +34,17 @@ class TodoOrEvent
 			return false
 		end
 
-		def is_todo?(line)
+		def parse(line)
 			if match_data = match_verbs(line)
 				#p "Begins with a verb", match_data
 				if mdata2 = match_verbs(match_data[2])
 					#p "Begins with a verb again", mdata2
-					return false
+					return :event
 				else
-					return true
+					return :todo
 				end
 			end
-			return false
+			return :event
 		end
 	end
 end
