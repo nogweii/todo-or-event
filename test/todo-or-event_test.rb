@@ -32,4 +32,12 @@ class TodoOrEventTest < Test::Unit::TestCase
 		assert_equal TodoOrEvent.parse("Catch fish with the claw shot"), :event
 		assert_equal TodoOrEvent.parse("Catch some fish with the claw shot"), :todo
 	end
+
+	def test_nil_on_empty_parameter
+		assert_nil TodoOrEvent.parse("")
+	end
+
+	def test_exception_on_nil_parameter
+		assert_raise ArgumentError { TodoOrEvent.parse(nil) }
+	end
 end

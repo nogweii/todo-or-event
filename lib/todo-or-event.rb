@@ -35,6 +35,9 @@ class TodoOrEvent
 		end
 
 		def parse(line)
+			raise ArgumentError, "Can't parse nil" if line.nil?
+			return nil if line.empty?
+
 			if match_data = match_verbs(line)
 				#p "Begins with a verb", match_data
 				if mdata2 = match_verbs(match_data[2])
